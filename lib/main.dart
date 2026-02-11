@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:invoice_builder/core/router/app_routes.dart';
 import 'package:invoice_builder/core/state/app_state.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/core/state/theme_state.dart';
@@ -6,7 +8,12 @@ import 'package:invoice_builder/shared/layout/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  const envFile = ".env";
+  await dotenv.load(fileName: envFile);
+
   runApp(
     MultiProvider(
       providers: [

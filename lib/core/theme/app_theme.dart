@@ -15,6 +15,18 @@ class AppTheme {
 
       scaffoldBackgroundColor: AppColors.background,
 
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle: TextStyle(
+          color: colorScheme.onInverseSurface,
+          fontSize: 14,
+        ),
+        actionTextColor: colorScheme.primary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 2,
+      ),
+
       // =========================
       // AppBar Theme
       // =========================
@@ -103,17 +115,29 @@ class AppTheme {
         ),
       ),
 
+      snackBarTheme: SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle: TextStyle(
+          color: colorScheme.onInverseSurface,
+          fontSize: 14,
+        ),
+        actionTextColor: colorScheme.primary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 2,
+      ),
+
       // =========================
       // Elevated Button Theme
       // =========================
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-      ),
+      // elevatedButtonTheme: ElevatedButtonThemeData(
+      //   style: ElevatedButton.styleFrom(
+      //     backgroundColor: colorScheme.primary,
+      //     foregroundColor: colorScheme.onPrimary,
+      //     padding: const EdgeInsets.symmetric(vertical: 14),
+      //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      //   ),
+      // ),
 
       // =========================
       // Input Decoration Theme

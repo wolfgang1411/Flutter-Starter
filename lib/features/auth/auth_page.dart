@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:invoice_builder/core/models/models.dart';
+import 'package:invoice_builder/core/network/api_exception.dart';
+import 'package:invoice_builder/core/state/auth_state.dart';
+import 'package:invoice_builder/features/auth/auth_service.dart';
 import 'package:invoice_builder/shared/layout/app_scaffold.dart';
 import 'package:invoice_builder/shared/layout/page_center.dart';
+import 'package:invoice_builder/shared/utils/app_snackbar.dart';
+import 'package:invoice_builder/shared/utils/crypto.dart';
 import 'package:invoice_builder/shared/widgets/app_input.dart';
 import "package:invoice_builder/shared/utils/validators.dart";
+import "package:provider/provider.dart";
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,12 +20,28 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final _authService = AuthService();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  void _submit() {
-    if (_formKey.currentState!.validate()) {}
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    try {
+      final request = AuthTokenRequestModel(
+        username: _emailController.text.trim(),
+        password: generateMd5(_passwordController.text.trim()),
+      );
+
+      final response = await _authService.loginWithEmail(request);
+
+      if (!mounted) return;
+      context.read<AuthProvider>().login(response.access_token);
+    } on ApiException catch (e) {
+      if (!mounted) return;
+      AppSnackbar.show(context, e.message);
+    }
   }
 
   @override
