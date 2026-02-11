@@ -9,6 +9,7 @@ import 'package:invoice_builder/shared/utils/app_snackbar.dart';
 import 'package:invoice_builder/shared/utils/crypto.dart';
 import 'package:invoice_builder/shared/widgets/app_input.dart';
 import "package:invoice_builder/shared/utils/validators.dart";
+import 'package:invoice_builder/shared/widgets/app_submit_button.dart';
 import "package:provider/provider.dart";
 
 class LoginPage extends StatefulWidget {
@@ -25,10 +26,15 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  var _isLoading = false;
+
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
     try {
+      setState(() {
+        _isLoading = true;
+      });
       final request = AuthTokenRequest(
         username: _emailController.text.trim(),
         password: generateMd5(_passwordController.text.trim()),
@@ -41,6 +47,10 @@ class _LoginPageState extends State<LoginPage> {
     } on ApiException catch (e) {
       if (!mounted) return;
       AppSnackbar.show(context, e.message);
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -66,7 +76,13 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 validator: Validators.min(6),
               ),
-              ElevatedButton(onPressed: _submit, child: const Text('Login')),
+              // ElevatedButton(onPressed: _submit, child: const Text('Login')),
+              SubmitButton(
+                text: 'Login',
+                loadingText: 'Please wait',
+                isLoading: _isLoading,
+                onPressed: _submit,
+              ),
             ],
           ),
         ),
