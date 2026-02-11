@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:invoice_builder/core/models/auth.model.dart';
 import 'package:invoice_builder/core/network/api_client.dart';
@@ -33,10 +32,8 @@ class AuthService {
     return true;
   }
 
-  Future<AuthTokenResponseModel> loginWithEmail(
-    AuthTokenRequestModel data,
-  ) async {
+  Future<AuthTokenResponse> loginWithEmail(AuthTokenRequest data) async {
     final response = await _apiClient.post('auth/token', data.toJson());
-    return AuthTokenResponseModel.fromJson(response.data);
+    return AuthTokenResponse.fromJson(response.data);
   }
 }

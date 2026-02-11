@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:invoice_builder/core/router/app_routes.dart';
 import 'package:invoice_builder/core/state/app_state.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/core/state/theme_state.dart';
@@ -18,8 +17,8 @@ Future<void> main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
-        ChangeNotifierProvider(create: (_) => AuthProvider()), // 👈 ADD THIS
-        ChangeNotifierProvider(create: (_) => ThemeProvider()), // 👈 ADD THIS
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: MyApp(),
     ),

@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
 
     try {
-      final request = AuthTokenRequestModel(
+      final request = AuthTokenRequest(
         username: _emailController.text.trim(),
         password: generateMd5(_passwordController.text.trim()),
       );
@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
       final response = await _authService.loginWithEmail(request);
 
       if (!mounted) return;
-      context.read<AuthProvider>().login(response.access_token);
+      context.read<AuthProvider>().login(response.accessToken);
     } on ApiException catch (e) {
       if (!mounted) return;
       AppSnackbar.show(context, e.message);

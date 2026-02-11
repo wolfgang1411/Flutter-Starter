@@ -1,102 +1,49 @@
-abstract class AuthTokenRequest {
-  String get username;
-  String get password;
-  String get grant_type;
-}
+import 'package:json_annotation/json_annotation.dart';
 
-class AuthTokenRequestModel implements AuthTokenRequest {
-  @override
+part 'auth.model.g.dart';
+
+@JsonSerializable()
+class AuthTokenRequest {
   final String username;
-
-  @override
   final String password;
 
-  @override
-  final String grant_type;
+  @JsonKey(name: 'grant_type')
+  final String grantType;
 
-  AuthTokenRequestModel({
+  AuthTokenRequest({
     required this.username,
     required this.password,
-    this.grant_type = 'password',
+    this.grantType = 'password',
   });
 
-  Map<String, dynamic> toJson() => {
-    'username': username,
-    'password': password,
-    'grant_type': grant_type,
-  };
+  factory AuthTokenRequest.fromJson(Map<String, dynamic> json) =>
+      _$AuthTokenRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AuthTokenRequestToJson(this);
 }
 
-abstract class AuthTokenResponse {
-  String get access_token;
-  String get refresh_token;
-  int get expires_in;
-  String get type;
-}
+@JsonSerializable()
+class AuthTokenResponse {
+  @JsonKey(name: 'access_token')
+  final String accessToken;
 
-class AuthTokenResponseModel implements AuthTokenResponse {
-  @override
-  final String access_token;
+  @JsonKey(name: 'refresh_token')
+  final String refreshToken;
 
-  @override
-  final String refresh_token;
+  @JsonKey(name: 'expires_in')
+  final int expiresIn;
 
-  @override
-  final int expires_in;
-
-  @override
   final String type;
 
-  AuthTokenResponseModel({
-    required this.access_token,
-    required this.refresh_token,
-    required this.expires_in,
+  AuthTokenResponse({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.expiresIn,
     required this.type,
   });
 
-  factory AuthTokenResponseModel.fromJson(Map<String, dynamic> json) {
-    return AuthTokenResponseModel(
-      access_token: json['access_token'],
-      refresh_token: json['refresh_token'],
-      expires_in: json['expires_in'],
-      type: json['type'],
-    );
-  }
-}
+  factory AuthTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$AuthTokenResponseFromJson(json);
 
-abstract class TokenInfo {
-  int get sub;
-  String get username;
-  int get iat;
-  int get exp;
-}
-
-class TokenInfoModel implements TokenInfo {
-  @override
-  final int sub;
-
-  @override
-  final String username;
-
-  @override
-  final int iat;
-
-  @override
-  final int exp;
-
-  TokenInfoModel({
-    required this.sub,
-    required this.username,
-    required this.iat,
-    required this.exp,
-  });
-
-  factory TokenInfoModel.fromJson(Map<String, dynamic> json) {
-    return TokenInfoModel(
-      sub: json['sub'],
-      username: json['username'],
-      iat: json['iat'],
-      exp: json['exp'],
-    );
-  }
+  Map<String, dynamic> toJson() => _$AuthTokenResponseToJson(this);
 }
