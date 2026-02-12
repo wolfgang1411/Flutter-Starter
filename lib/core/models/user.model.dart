@@ -31,3 +31,30 @@ class UserModel {
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
+
+@JsonSerializable(includeIfNull: false)
+class UserFilterModel {
+  final int page;
+
+  @JsonKey(name: 'itemsPerPage')
+  final int itemsPerPage;
+
+  @JsonKey(name: 'searchStr')
+  final String? searchStr;
+
+  UserFilterModel({this.page = 1, this.itemsPerPage = 20, this.searchStr});
+
+  factory UserFilterModel.fromJson(Map<String, dynamic> json) =>
+      _$UserFilterModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserFilterModelToJson(this);
+
+  /// Helpful copyWith for updates
+  UserFilterModel copyWith({int? page, int? itemsPerPage, String? searchStr}) {
+    return UserFilterModel(
+      page: page ?? this.page,
+      itemsPerPage: itemsPerPage ?? this.itemsPerPage,
+      searchStr: searchStr ?? this.searchStr,
+    );
+  }
+}

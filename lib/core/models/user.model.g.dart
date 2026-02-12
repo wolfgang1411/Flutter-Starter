@@ -29,3 +29,17 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'accessLevel': instance.accessLevel,
   'isEmailVerified': instance.isEmailVerified,
 };
+
+UserFilterModel _$UserFilterModelFromJson(Map<String, dynamic> json) =>
+    UserFilterModel(
+      page: (json['page'] as num?)?.toInt() ?? 1,
+      itemsPerPage: (json['itemsPerPage'] as num?)?.toInt() ?? 20,
+      searchStr: json['searchStr'] as String?,
+    );
+
+Map<String, dynamic> _$UserFilterModelToJson(UserFilterModel instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'itemsPerPage': instance.itemsPerPage,
+      'searchStr': ?instance.searchStr,
+    };
