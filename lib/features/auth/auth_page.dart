@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:invoice_builder/core/constants/app_assets.dart';
 import 'package:invoice_builder/core/models/models.dart';
 import 'package:invoice_builder/core/network/api_exception.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
@@ -64,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.min,
             spacing: 10,
             children: [
+              Image.asset(AppAssets.logo),
               AppInputField(
                 label: 'Email',
                 controller: _emailController,
