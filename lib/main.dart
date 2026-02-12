@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:invoice_builder/core/state/app_state.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/core/state/theme_state.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:invoice_builder/l10n/app_localizations.dart';
 import 'package:invoice_builder/shared/layout/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
@@ -32,10 +34,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
     return MaterialApp(
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('da')],
+      locale: Locale("en"),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(), // you must create this
-      themeMode: themeProvider.themeMode, // 👈 controlled by provider
+      darkTheme: AppTheme.dark(),
+      themeMode: themeProvider.themeMode,
       home: const AuthWrapper(),
     );
   }

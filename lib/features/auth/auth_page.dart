@@ -4,6 +4,7 @@ import 'package:invoice_builder/core/models/models.dart';
 import 'package:invoice_builder/core/network/api_exception.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/features/auth/auth_service.dart';
+import 'package:invoice_builder/l10n/app_localizations.dart';
 import 'package:invoice_builder/shared/layout/app_scaffold.dart';
 import 'package:invoice_builder/shared/layout/page_center.dart';
 import 'package:invoice_builder/shared/utils/app_snackbar.dart';
@@ -66,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
             spacing: 10,
             children: [
               Image.asset(AppAssets.logo),
+              Text(AppLocalizations.of(context)!.hello),
               AppInputField(
                 label: 'Email',
                 controller: _emailController,
