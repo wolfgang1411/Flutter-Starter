@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_builder/features/auth/auth_page.dart';
 import 'package:invoice_builder/features/home/home_page.dart';
+import 'package:invoice_builder/shared/layout/auth_wrapper.dart'; // add this
 
 class AppRoutes {
   static const String home = '/';
@@ -9,10 +10,12 @@ class AppRoutes {
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case home:
+        return MaterialPageRoute(
+          builder: (_) => const AuthWrapper(child: HomePage()),
+        );
       case auth:
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case home:
-        return MaterialPageRoute(builder: (_) => HomePage());
       default:
         return MaterialPageRoute(
           builder: (_) =>

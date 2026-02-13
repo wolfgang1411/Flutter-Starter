@@ -6,7 +6,6 @@ import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/core/state/theme_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:invoice_builder/l10n/app_localizations.dart';
-import 'package:invoice_builder/shared/layout/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 import 'core/theme/app_theme.dart';
 
@@ -47,7 +46,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: themeProvider.themeMode,
-      home: const AuthWrapper(),
+      initialRoute: AppRoutes.home,
+      onGenerateRoute: AppRoutes.generateRoute,
     );
   }
 }

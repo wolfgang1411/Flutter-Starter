@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invoice_builder/core/constants/app_assets.dart';
 import 'package:invoice_builder/core/models/models.dart';
 import 'package:invoice_builder/core/network/api_exception.dart';
+import 'package:invoice_builder/core/router/app_routes.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
 import 'package:invoice_builder/features/auth/auth_service.dart';
 import 'package:invoice_builder/l10n/app_localizations.dart';
@@ -45,7 +46,9 @@ class _LoginPageState extends State<LoginPage> {
       final response = await _authService.loginWithEmail(request);
 
       if (!mounted) return;
-      context.read<AuthProvider>().login(response.accessToken);
+      await context.read<AuthProvider>().login(response.accessToken);
+      if (!mounted) return;
+      Navigator.popAndPushNamed(context, AppRoutes.home);
     } on ApiException catch (e) {
       if (!mounted) return;
       AppSnackbar.show(context, e.message);

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:invoice_builder/core/router/app_routes.dart';
 import 'package:invoice_builder/core/state/auth_state.dart';
-import 'package:invoice_builder/features/auth/auth_page.dart';
-import 'package:invoice_builder/features/home/home_page.dart';
-import 'package:provider/provider.dart'; // 👈 REQUIRED
+import 'package:provider/provider.dart';
 
 class AuthWrapper extends StatelessWidget {
-  const AuthWrapper({super.key});
+  final Widget child;
+
+  const AuthWrapper({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,16 @@ class AuthWrapper extends StatelessWidget {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    if (auth.isAuthenticated) {
-      return HomePage();
-    } else {
-      return LoginPage();
+    if (!auth.isAuthenticated) {
+      // 👇 Redirect AFTER build
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, AppRoutes.auth);
+      });
+
+      // Temporary blank screen while redirecting
+      return const SizedBox.shrink();
     }
+
+    return child;
   }
 }
